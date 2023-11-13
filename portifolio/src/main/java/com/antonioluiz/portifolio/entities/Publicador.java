@@ -1,41 +1,35 @@
 package com.antonioluiz.portifolio.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
-@Table(name="tb_category")
-public class Category implements Serializable{
+@Table(name="tb_publicador")
+public class Publicador implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String agy;
+	private String adress;
 	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "categories")
-	private Set<Product> products=new HashSet<Product>();
-	
-	public Category() {
-	}
-	public Category(Long id, String name) {
+	public Publicador() {
 		super();
-		this.id = id;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Publicador(long i, String name, String agy, String adress) {
+		this.id = i;
 		this.name = name;
+		this.agy = agy;
+		this.adress = adress;
 	}
 	public Long getId() {
 		return id;
@@ -49,14 +43,24 @@ public class Category implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<Product> getProducts() {
-		return products;
+	public String getAgy() {
+		return agy;
 	}
-	
+	public void setAgy(String agy) {
+		this.agy = agy;
+	}
+	public String getEndress() {
+		return adress;
+	}
+	public void setEndress(String endress) {
+		this.adress = endress;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,8 +69,9 @@ public class Category implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Publicador other = (Publicador) obj;
 		return Objects.equals(id, other.id);
 	}
+
 	
 }
