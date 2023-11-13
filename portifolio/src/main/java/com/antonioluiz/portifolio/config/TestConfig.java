@@ -10,11 +10,14 @@ import org.springframework.context.annotation.Profile;
 
 import com.antonioluiz.portifolio.entities.Category;
 import com.antonioluiz.portifolio.entities.Order;
+import com.antonioluiz.portifolio.entities.OrderItem;
+import com.antonioluiz.portifolio.entities.Payment;
 import com.antonioluiz.portifolio.entities.Product;
 import com.antonioluiz.portifolio.entities.Publicador;
 import com.antonioluiz.portifolio.entities.User;
 import com.antonioluiz.portifolio.entities.enums.OrdersStatus;
 import com.antonioluiz.portifolio.repositories.CategoryRepository;
+import com.antonioluiz.portifolio.repositories.OrderItemRepository;
 import com.antonioluiz.portifolio.repositories.OrderRepository;
 import com.antonioluiz.portifolio.repositories.ProductRepository;
 import com.antonioluiz.portifolio.repositories.PublicadorRepository;
@@ -38,6 +41,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -73,6 +79,14 @@ public class TestConfig implements CommandLineRunner{
 		Publicador pu1= new Publicador(0, "João", "41", "8888-9999");
 		Publicador pu2= new Publicador(0, "Tiago", "41", "8888-9999");
 		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		Payment pay1=new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o3);
+		o3.setPayment(pay1);
+		
 		userRepository.saveAll(Arrays.asList(u1,u2,u3));
 		
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
@@ -82,7 +96,7 @@ public class TestConfig implements CommandLineRunner{
 		
 		publicadoryRepository.saveAll(Arrays.asList(pu,pu1,pu2));
 		
-		
+		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 	}
 	
 
